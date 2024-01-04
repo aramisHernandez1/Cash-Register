@@ -1,6 +1,10 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 
 import javax.swing.*;;
 
@@ -21,26 +25,30 @@ public class MainFrame {
         this.frame.setSize(800, 800);
         this.frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.frame.setLocationRelativeTo(null); //Center frame
+        this.frame.setLayout(new GridBagLayout());
+        //Needed class for gridbaglayout.
+        GridBagConstraints gbc = new GridBagConstraints();
 
-        //Main background panel.
-        JPanel center = new JPanel();
-        center.setBackground(Color.gray);
-        this.frame.add(center, BorderLayout.CENTER);
+        //Setting location for panel.
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridheight = 2;
+        gbc.gridwidth = 2;
+        gbc.ipady = 10;
+        leftPanel = createPanel(Color.white); //Cutomer panel
+        this.frame.add(leftPanel, gbc);
 
-        leftPanel = createPanel(Color.cyan, BorderLayout.WEST, new Dimension(200, 400)); //Cutomer panel
-        rightPanel = createPanel(Color.white, BorderLayout.EAST, new Dimension(300, 400)); //Cashier panel.
+        rightPanel = createPanel(Color.white); //Cashier panel.
 
         show(true);
     }
 
     //Shortcut method to make JPanels.
     //Used to reduce cluter.
-    private JPanel createPanel(Color backgroundColor, String borderlayout, Dimension size){
+    private JPanel createPanel(Color backgroundColor){
         JPanel panel = new JPanel();
         panel.setBackground(backgroundColor);
-        panel.setPreferredSize(size);
-        
-        this.frame.add(panel, borderlayout);
+        panel.setBorder(BorderFactory.createLineBorder(Color.black, 1));
         return panel;
     }
 
